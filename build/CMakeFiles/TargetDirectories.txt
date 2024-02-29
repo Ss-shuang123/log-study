@@ -1,3 +1,0 @@
-/root/ls/study/log/build/CMakeFiles/log.dir
-/root/ls/study/log/build/CMakeFiles/edit_cache.dir
-/root/ls/study/log/build/CMakeFiles/rebuild_cache.dir
