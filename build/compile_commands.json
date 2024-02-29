@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/root/ls/study/log/build",
+  "command": "/usr/local/src/build-gcc-13.2.0/bin/g++ -O3 -DNDEBUG -std=gnu++20 -o CMakeFiles/log.dir/main.cpp.o -c /root/ls/study/log/main.cpp",
+  "file": "/root/ls/study/log/main.cpp",
+  "output": "CMakeFiles/log.dir/main.cpp.o"
+}
+]
