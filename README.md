@@ -6,4 +6,4 @@ cmake --build build
 build/main
 
 # From
-from [https://github.com/archibate/babyjson-demo](url)
+from [https://github.com/archibate/minilog](url)
