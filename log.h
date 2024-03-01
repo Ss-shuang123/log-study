@@ -7,12 +7,13 @@
 
 namespace LOG
 {
+// f代表函数 XMACRO技术
 #define LOG_FOREACH_LOG_LEVEL(f) \
     f(trace)                     \
         f(debug)                 \
             f(info)              \
                 f(critical)      \
-                    f(warn)      \
+                    f(warning)   \
                         f(error) \
                             f(fatal)
 
@@ -37,7 +38,16 @@ namespace LOG
 #undef _FUNCTION
             }
         }
-        // f代表函数 XMACRO技术
+
+        inline log_level log_level_from_name(std::string lev)
+        {
+#define _FUNCTION(name) \
+    if (lev == #name)   \
+        return log_level::name;
+            LOG_FOREACH_LOG_LEVEL(_FUNCTION)
+#undef _FUNCTION
+            return log_level::info;
+        }
 
         template <class T>
         struct with_source_location
@@ -57,7 +67,16 @@ namespace LOG
             constexpr const std::source_location &location() const { return loc; }
         };
 
-        static log_level g_max_level = log_level::error;
+        // static log_level g_max_level = log_level::error;
+        inline log_level g_max_level = []() -> log_level // static initialization 内联初始化 声明就初始化
+        {
+            if (auto lev = std::getenv("LOG_LEVEL"))
+            {
+                return detail::log_level_from_name(lev);
+            }
+            return log_level::info;
+        }();
+
         template <class... Args>
         void log(log_level level, with_source_location<std::format_string<Args...>> fmt, Args &&...args)
         {
